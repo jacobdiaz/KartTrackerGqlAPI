@@ -4,7 +4,8 @@
   "description": "Rental kart tracking app",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "herokuDev": "heroku config:set NODE_ENV=development"
   },
   "author": "Jacob Diaz",
   "license": "ISC",
