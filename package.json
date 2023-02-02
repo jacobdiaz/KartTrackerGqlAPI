@@ -1,0 +1,17 @@
+{
+  "name": "karttrackerapi",
+  "version": "1.0.0",
+  "description": "Rental kart tracking app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Jacob Diaz",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^3.11.1",
+    "graphql": "^16.6.0",
+    "mongoose": "^6.9.0",
+    "nodemon": "^2.0.20"
+  }
+}
