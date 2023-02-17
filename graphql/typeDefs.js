@@ -2,28 +2,49 @@
 const { gql } = require("apollo-server");
 
 module.exports = gql`
-  type Recipe {
-    name: String
-    description: String
-    createdAt: String
-    thumbsUp: Int
-    thumbsDown: Int
-  }
-  # What the user will input
-  input RecipeInput {
-    name: String
-    description: String
+  # Types
+  type Kart {
+    id: ID!
+    kartNum: String!
+    handlingRatings: [Rating!]!
+    speedRatings: [Rating!]!
+    brakingRatings: [Rating!]!
   }
 
-  # Reading the information
+  type Rating {
+    id: ID!
+    value: Float!
+    date: String!
+  }
+
+  # Inputs
+  input KartInput {
+    kartNum: String!
+    handlingRatings: [RatingInput!]!
+    speedRatings: [RatingInput!]!
+    brakingRatings: [RatingInput!]!
+  }
+
+  input KartEditInput {
+    kartNum: String
+    handlingRatings: [RatingInput!]
+    speedRatings: [RatingInput!]
+    brakingRatings: [RatingInput!]
+  }
+
+  input RatingInput {
+    value: Float!
+    date: String
+  }
+
   type Query {
-    recipe(ID: ID!): Recipe!
-    getRecipes(amount: Int): [Recipe]
+    kart(ID: ID!): Kart!
+    getKarts(amount: Int): [Kart]
   }
 
   type Mutation {
-    createRecipe(recipeInput: RecipeInput): Recipe!
-    deleteRecipe(ID: ID!): Boolean! #delete recipe by an id
-    editRecipe(ID: ID!, recipeInput: RecipeInput): Boolean # Allow a users to edit name and desc.
+    createKart(kartInput: KartInput): Kart!
+    deleteKart(ID: ID!): Boolean! #delete kart by an id
+    editKart(ID: ID!, kartInput: KartEditInput): Boolean # Allow a users to edit name and desc.
   }
 `;
