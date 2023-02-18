@@ -16,5 +16,3 @@ mongoose
   .then(({ url }) => {
     console.log(`Server running at ${url} `);
   });
-
-console.log(process.env.KART_API_KEY);

@@ -17,7 +17,35 @@ module.exports = gql`
     date: String!
   }
 
+  type User {
+    username: String
+    email: String
+    password: String
+    token: String
+  }
+  type Message {
+    text: String
+    createdAt: String
+    createdBy: String
+  }
+
   # Inputs
+  input RegisterInput {
+    username: String
+    email: String
+    password: String
+  }
+
+  input LoginInput {
+    email: String
+    password: String
+  }
+
+  input MessageInput {
+    text: String
+    username: String
+  }
+
   input KartInput {
     kartNum: String!
     handlingRatings: [RatingInput!]!
@@ -38,13 +66,18 @@ module.exports = gql`
   }
 
   type Query {
-    kart(ID: ID!): Kart!
+    kart(ID: ID!): Kart
     getKarts(amount: Int): [Kart]
+    user(ID: ID!): User
   }
 
   type Mutation {
+    # kart
     createKart(kartInput: KartInput): Kart!
     deleteKart(ID: ID!): Boolean! #delete kart by an id
     editKart(ID: ID!, kartInput: KartEditInput): Boolean # Allow a users to edit name and desc.
+    # User
+    registerUser(registerInput: RegisterInput): User
+    loginUser(loginInput: LoginInput): User
   }
 `;
