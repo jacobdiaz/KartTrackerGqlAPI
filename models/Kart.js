@@ -11,6 +11,7 @@ const rating = {
 };
 
 const kartSchema = new Schema({
+  userId: { type: String, required: true },
   kartNum: {
     type: String,
     required: true,

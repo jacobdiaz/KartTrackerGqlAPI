@@ -15,9 +15,18 @@ module.exports = {
   Mutation: {
     async createKart(
       _,
-      { kartInput: { kartNum, handlingRatings, speedRatings, brakingRatings } }
+      {
+        kartInput: {
+          userId,
+          kartNum,
+          handlingRatings,
+          speedRatings,
+          brakingRatings,
+        },
+      }
     ) {
       const createdKart = new Kart({
+        userId: userId,
         kartNum: kartNum,
         handlingRatings: handlingRatings,
         speedRatings: speedRatings,

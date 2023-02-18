@@ -5,6 +5,7 @@ module.exports = gql`
   # Types
   type Kart {
     id: ID!
+    userId: ID!
     kartNum: String!
     handlingRatings: [Rating!]!
     speedRatings: [Rating!]!
@@ -47,6 +48,7 @@ module.exports = gql`
   }
 
   input KartInput {
+    userId: ID!
     kartNum: String!
     handlingRatings: [RatingInput!]!
     speedRatings: [RatingInput!]!
