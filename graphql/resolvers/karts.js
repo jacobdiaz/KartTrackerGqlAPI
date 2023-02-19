@@ -11,6 +11,12 @@ module.exports = {
     async getKarts(_, { amount }) {
       return await Kart.find().limit(amount);
     },
+
+    async getUserKarts(_, { userId }) {
+      // create a query to get all karts with the same userId
+      const query = { userId: userId };
+      return await Kart.find(query);
+    },
   },
   Mutation: {
     async createKart(

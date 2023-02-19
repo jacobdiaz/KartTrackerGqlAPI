@@ -35,6 +35,7 @@ module.exports = gql`
     username: String
     email: String
     password: String
+    confirmPassword: String
   }
 
   input LoginInput {
@@ -70,6 +71,7 @@ module.exports = gql`
   type Query {
     kart(ID: ID!): Kart
     getKarts(amount: Int): [Kart]
+    getUserKarts(userId: ID!): [Kart]
     user(ID: ID!): User
   }
 
