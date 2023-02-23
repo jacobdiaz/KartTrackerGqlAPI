@@ -9,7 +9,7 @@ module.exports = {
     user: (_, { ID }) => User.findById(ID), // another way to query a user
   },
   Mutation: {
-    async registerUser(_, { registerInput: { username, email, password } }) {
+    async registerUser(_, { registerInput: { email, password } }) {
       // See if an old user exists with email attempting to be registered to register
       const userExsists = await User.findOne({ email });
       // Throw an error if it exsists
@@ -20,7 +20,6 @@ module.exports = {
       var encryptedPassword = await bcrypt.hash(password, 10);
 
       const newUser = new User({
-        username: username,
         email: email.toLowerCase(),
         password: encryptedPassword,
       });
@@ -40,30 +39,34 @@ module.exports = {
         ...res._doc, // gets all properties of the object
       };
     },
-  },
 
-  async loginUser(_, { loginInput: { email, password } }) {
-    // See if user exsists & passwords match
-    const foundUser = await User.findOne({ email });
-    const passwordsMatch = await bcrypt.compare(password, foundUser.password);
+    async loginUser(_, { loginInput: { email, password } }) {
+      // See if user exsists & passwords match
+      const foundUser = await User.findOne({ email });
+      const passwordsMatch = await bcrypt.compare(password, foundUser.password);
 
-    // Check if entered password = encrypted password
-    if (foundUser && passwordsMatch) {
-      // Create our JWT token
-      const token = jwt.sign({ user_id: newUser._id, email }, "UNSAFE_STRING", {
-        expiresIn: "2h",
-      });
+      // Check if entered password = encrypted password
+      if (foundUser && passwordsMatch) {
+        // Create our JWT token
+        const token = jwt.sign(
+          { user_id: foundUser._id, email },
+          "UNSAFE_STRING",
+          {
+            expiresIn: "2h",
+          }
+        );
 
-      // Attach token to user model
-      foundUser.token = token;
+        // Attach token to user model
+        foundUser.token = token;
 
-      return {
-        id: foundUser.id,
-        ...foundUser._doc,
-      };
-    } else {
-      // User doesn't exsists
-      throw new ApolloError("Invalid credentials", "INCORRECT_CREDENTIALS");
-    }
+        return {
+          id: foundUser.id,
+          ...foundUser._doc,
+        };
+      } else {
+        // User doesn't exsists
+        return new ApolloError("Invalid credentials", "INCORRECT_CREDENTIALS");
+      }
+    },
   },
 };

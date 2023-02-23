@@ -19,7 +19,6 @@ module.exports = gql`
   }
 
   type User {
-    username: String
     email: String
     password: String
     token: String
@@ -32,7 +31,6 @@ module.exports = gql`
 
   # Inputs
   input RegisterInput {
-    username: String
     email: String
     password: String
   }
