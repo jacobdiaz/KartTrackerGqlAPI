@@ -6,14 +6,14 @@ module.exports = gql`
   type Kart {
     id: ID!
     userId: ID!
+    trackId: String
     kartNum: String!
-    handlingRatings: [Rating!]!
-    speedRatings: [Rating!]!
-    brakingRatings: [Rating!]!
+    handlingRatings: Rating!
+    speedRatings: Rating!
+    brakingRatings: Rating!
   }
 
   type Rating {
-    id: ID!
     value: Float!
     date: String!
   }
@@ -24,10 +24,11 @@ module.exports = gql`
     password: String
     token: String
   }
-  type Message {
-    text: String
-    createdAt: String
-    createdBy: String
+
+  type Track {
+    id: ID!
+    userIds: [String]
+    trackName: String
   }
 
   # Inputs
@@ -41,24 +42,20 @@ module.exports = gql`
     password: String
   }
 
-  input MessageInput {
-    text: String
-    username: String
-  }
-
   input KartInput {
     userId: ID!
     kartNum: String!
-    handlingRatings: [RatingInput!]!
-    speedRatings: [RatingInput!]!
-    brakingRatings: [RatingInput!]!
+    trackId: String
+    handlingRatings: RatingInput!
+    speedRatings: RatingInput!
+    brakingRatings: RatingInput!
   }
 
   input KartEditInput {
     kartNum: String
-    handlingRatings: [RatingInput!]
-    speedRatings: [RatingInput!]
-    brakingRatings: [RatingInput!]
+    handlingRatings: RatingInput!
+    speedRatings: RatingInput!
+    brakingRatings: RatingInput!
   }
 
   input RatingInput {
@@ -66,11 +63,25 @@ module.exports = gql`
     date: String
   }
 
+  input TrackInput {
+    userIds: [String]
+    trackName: String
+  }
+
+  input CreateTrackInput {
+    userId: String
+    trackName: String
+  }
+
+  # Queries
   type Query {
     kart(ID: ID!): Kart
     getKarts(amount: Int): [Kart]
     getUserKarts(userId: ID!): [Kart]
     user(ID: ID!): User
+    getUsersTracks(userId: ID!): [Track]
+    getTracksKarts(trackId: ID!): [Kart]
+    getTrack(trackId: ID!): Track
   }
 
   type Mutation {
@@ -81,5 +92,9 @@ module.exports = gql`
     # User
     registerUser(registerInput: RegisterInput): User
     loginUser(loginInput: LoginInput): User
+
+    # Tracks
+    createTrack(createTrackInput: CreateTrackInput): Track
+    deleteTrack(trackId: ID!): object
   }
 `;
