@@ -95,5 +95,6 @@ module.exports = gql`
 
     # Tracks
     createTrack(createTrackInput: CreateTrackInput): Track
+    deleteTrack(trackId: ID!): object
   }
 `;

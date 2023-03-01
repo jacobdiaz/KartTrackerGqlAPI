@@ -37,5 +37,16 @@ module.exports = {
         ...res._doc,
       };
     },
+
+    async deleteTrack(_, { trackId }) {
+      // delete all karts associated with the track and delete the track
+      const kartsDeleted = (await Kart.deleteMany({ trackId: trackId }))
+        .deletedCount;
+      const trackDeleted = await Track.deleteOne({ _id: trackId });
+      return {
+        kartsDeleted,
+        trackDeleted,
+      };
+    },
   },
 };
