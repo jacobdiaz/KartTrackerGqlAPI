@@ -1,9 +1,22 @@
 const Track = require("../../models/Track");
 const capFirstLetter = require("../../utils/index");
-
+const Kart = require("../../models/Kart");
 module.exports = {
   Query: {
-    //
+    async getTracksKarts(_, { trackId }) {
+      const query = { trackId: trackId };
+      return await Kart.find(query);
+    },
+
+    async getUsersTracks(_, { userId }) {
+      const query = { userIds: { $in: [userId] } };
+      const tracks = await Track.find(query);
+      return tracks;
+    },
+
+    async getTrack(_, { trackId }) {
+      return await Track.findById(trackId);
+    },
   },
   Mutation: {
     async createTrack(_, { createTrackInput: { userId, trackName } }) {
@@ -12,9 +25,9 @@ module.exports = {
 
       const trackExsists = await Track.findOne({ trackName: trackNameCap });
       if (trackExsists) throw new Error("Track already exsists");
-      // TODO Add kart id array to track
+
       const createdTrack = new Track({
-        userIds: [userId], // init array with the userId who created
+        userIds: [userId],
         trackName: trackNameCap,
       });
 

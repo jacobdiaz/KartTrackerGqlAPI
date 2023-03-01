@@ -79,6 +79,9 @@ module.exports = gql`
     getKarts(amount: Int): [Kart]
     getUserKarts(userId: ID!): [Kart]
     user(ID: ID!): User
+    getUsersTracks(userId: ID!): [Track]
+    getTracksKarts(trackId: ID!): [Kart]
+    getTrack(trackId: ID!): Track
   }
 
   type Mutation {
