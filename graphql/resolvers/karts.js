@@ -28,16 +28,25 @@ module.exports = {
           handlingRatings,
           speedRatings,
           brakingRatings,
+          trackId,
         },
       }
     ) {
       const createdKart = new Kart({
         userId: userId,
         kartNum: kartNum,
+        trackId: trackId,
         handlingRatings: handlingRatings,
         speedRatings: speedRatings,
         brakingRatings: brakingRatings,
       });
+
+      const kartExsists = await Kart.findOne({
+        kartNum: kartNum,
+        trackId: trackId,
+      });
+
+      if (kartExsists) throw new Error("Kart already exsists");
 
       const res = await createdKart.save();
 

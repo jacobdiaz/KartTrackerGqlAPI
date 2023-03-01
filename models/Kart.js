@@ -16,8 +16,9 @@ const kartSchema = new Schema({
     type: String,
     required: true,
   },
-  handlingRatings: [rating],
-  speedRatings: [rating],
-  brakingRatings: [rating],
+  trackId: String,
+  handlingRatings: rating,
+  speedRatings: rating,
+  brakingRatings: rating,
 });
 module.exports = model("Kart", kartSchema);
