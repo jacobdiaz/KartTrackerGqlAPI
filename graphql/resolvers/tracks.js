@@ -43,10 +43,9 @@ module.exports = {
       const kartsDeleted = (await Kart.deleteMany({ trackId: trackId }))
         .deletedCount;
       const trackDeleted = await Track.deleteOne({ _id: trackId });
-      return {
-        kartsDeleted,
-        trackDeleted,
-      };
+      const deletedSuccess = kartsDeleted && trackDeleted;
+
+      return deletedSuccess;
     },
   },
 };
