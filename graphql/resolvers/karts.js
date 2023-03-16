@@ -64,13 +64,18 @@ module.exports = {
     async editKart(
       _,
       {
-        ID,
-        kartInput: { kartNum, handlingRatings, speedRatings, brakingRatings },
+        kartInput: {
+          id,
+          kartNum,
+          handlingRatings,
+          speedRatings,
+          brakingRatings,
+        },
       }
     ) {
       const wasEdited = (
         await Kart.updateOne(
-          { _id: ID },
+          { _id: id },
           {
             kartNum: kartNum,
             handlingRatings: handlingRatings,

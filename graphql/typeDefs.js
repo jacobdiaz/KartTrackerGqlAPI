@@ -45,6 +45,7 @@ module.exports = gql`
     brakingRatings: RatingInput!
   }
   input KartEditInput {
+    id: ID!
     kartNum: String
     handlingRatings: RatingInput!
     speedRatings: RatingInput!
@@ -76,7 +77,7 @@ module.exports = gql`
     # kart
     createKart(kartInput: KartInput): Kart!
     deleteKart(ID: ID!): Boolean!
-    editKart(ID: ID!, kartInput: KartEditInput): Boolean # Allow a users to edit name and desc.
+    editKart(kartInput: KartEditInput): Boolean # Allow a users to edit name and desc.
     # User
     registerUser(registerInput: RegisterInput): User
     loginUser(loginInput: LoginInput): User
