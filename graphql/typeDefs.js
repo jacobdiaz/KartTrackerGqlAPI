@@ -27,6 +27,16 @@ module.exports = gql`
     userIds: [String]
     trackName: String
   }
+
+  type RaceData {
+    id: ID!
+    kartNum: String!
+    position: String!
+    raceType: String!
+    time: String!
+    track: String!
+    userId: String!
+  }
   # Inputs
   input RegisterInput {
     email: String
@@ -63,6 +73,16 @@ module.exports = gql`
     userId: String
     trackName: String
   }
+
+  input RaceDataInput {
+    kartNum: String!
+    position: String!
+    raceType: String!
+    time: String!
+    track: String!
+    userId: String!
+  }
+
   # Queries
   type Query {
     kart(ID: ID!): Kart
@@ -84,5 +104,8 @@ module.exports = gql`
     # Tracks
     createTrack(createTrackInput: CreateTrackInput): Track
     deleteTrack(trackId: ID!): Boolean!
+
+    # RaceData
+    createRaceData(raceDataInput: RaceDataInput): RaceData
   }
 `;
