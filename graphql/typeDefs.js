@@ -83,6 +83,16 @@ module.exports = gql`
     userId: String!
   }
 
+  input RaceDataEditInput {
+    id: ID!
+    kartNum: String
+    position: String
+    raceType: String
+    time: String
+    track: String
+    userId: String
+  }
+
   # Queries
   type Query {
     kart(ID: ID!): Kart
@@ -92,6 +102,8 @@ module.exports = gql`
     getUsersTracks(userId: ID!): [Track]
     getTracksKarts(trackId: ID!): [Kart]
     getTrack(trackId: ID!): Track
+    getRaceData(amount: Int): [RaceData]
+    getUserRaceData(userId: ID!): [RaceData]
   }
   type Mutation {
     # kart
@@ -107,5 +119,7 @@ module.exports = gql`
 
     # RaceData
     createRaceData(raceDataInput: RaceDataInput): RaceData
+    editRaceData(raceDataEditInput: RaceDataEditInput): Boolean
+    deleteRaceData(raceDataID: ID!): Boolean!
   }
 `;

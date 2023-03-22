@@ -1,14 +1,14 @@
 const kartsResolver = require("./karts");
 const usersResolver = require("./users");
 const tracksResolver = require("./tracks");
-const raceDataResolver = require("./raceData");
+const raceDataResolver = require("./racedatas");
 
 module.exports = {
   Query: {
     ...kartsResolver.Query,
     ...usersResolver.Query,
     ...tracksResolver.Query,
-    ...kartsResolver.Query,
+    ...raceDataResolver.Query,
   },
   Mutation: {
     ...kartsResolver.Mutation,
